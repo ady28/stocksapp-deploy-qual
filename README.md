@@ -16,3 +16,6 @@ Server config:
  - sudo mkdir /srv/stocks_nfs
  - sudo nano /etc/exports [Add: /srv/stocks_nfs    *(rw,sync,no_subtree_check)]
  - sudo exportfs -a
+
+On the kubernetes cluster create the PV:
+ - kubectl apply -f database-pv.yaml

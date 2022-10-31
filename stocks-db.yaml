@@ -20,6 +20,7 @@ metadata:
   name: stocks-app-db
   namespace: stocks-app
 spec:
+  serviceName: stocksdb
   replicas: 1
   selector:
     matchLabels:

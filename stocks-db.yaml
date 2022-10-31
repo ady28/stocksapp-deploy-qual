@@ -31,6 +31,8 @@ spec:
         app: stocks-app
         microservice: db
     spec:
+      securityContext:
+        runAsUser: 999
       containers:
       - image: mongo:4.4.14-focal
         imagePullPolicy: IfNotPresent
@@ -39,14 +41,14 @@ spec:
           - name: db-data
             mountPath: "/data/db"
           - name: db-creds
-            mountPath: "/run/secrets"
+            mountPath: "/etc/secrets"
         ports:
         - containerPort: 27017
         env:
         - name: MONGO_INITDB_ROOT_USERNAME_FILE
-          value: "/run/secrets/stocksmongouser"
+          value: "/etc/secrets/stocksmongouser"
         - name: MONGO_INITDB_ROOT_PASSWORD_FILE
-          value: "/run/secrets/stocksmongopassword"
+          value: "/etc/secrets/stocksmongopassword"
       volumes:
       - name: db-data
         persistentVolumeClaim:

@@ -32,7 +32,7 @@ spec:
         microservice: db
     spec:
       securityContext:
-        runAsUser: "mongodb"
+        runAsUser: 999
       containers:
       - image: mongo:4.4.14-focal
         imagePullPolicy: IfNotPresent

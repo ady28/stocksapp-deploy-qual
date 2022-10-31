@@ -11,3 +11,50 @@ spec:
     requests:
       storage: 2Gi
   volumeName: pv-stocksapp-db
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stocks-app-db
+  namespace: stocks-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: stocks-app
+      microservice: db
+  template:
+    metadata:
+      labels:
+        app: stocks-app
+        microservice: db
+    spec:
+      securityContext:
+        runAsUser: "mongodb"
+      containers:
+      - image: mongo:4.4.14-focal
+        imagePullPolicy: IfNotPresent
+        name: stocksdb
+        volumeMounts:
+          - name: db_data
+            mountPath: "/data/db"
+          - name: db_creds
+            mountPath: "/run/secrets"
+            readOnly: true
+        ports:
+        - containerPort: 27017
+        env:
+        - name: MONGO_INITDB_ROOT_USERNAME_FILE
+          value: "/run/secrets/stocksmongouser"
+        - name: MONGO_INITDB_ROOT_PASSWORD_FILE
+          value: "/run/secrets/stocksmongopassword"
+      volumes:
+      - name: db_data
+        persistentVolumeClaim:
+          claimName: pv-stocksapp-db
+      - name: db_creds
+        secret:
+          secretName: db-creds
+          optional: false

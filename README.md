@@ -19,3 +19,6 @@ Server config:
 
 On the kubernetes cluster create the PV:
  - kubectl apply -f database-pv.yaml
+
+Create a secret with the DB username and password
+ - kubectl create secret generic db-creds --from-literal=stocksmongouser=user --from-literal=stocksmongopassword='pass' --namespace stocks-app

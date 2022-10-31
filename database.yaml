@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-stocksapp_db
+spec:
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: lnx1
+    path: "/srv/stocks_nfs"
+  mountOptions:
+    - nfsvers=4.2

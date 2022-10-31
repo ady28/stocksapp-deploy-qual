@@ -53,7 +53,7 @@ spec:
       volumes:
       - name: db-data
         persistentVolumeClaim:
-          claimName: pv-stocksapp-db
+          claimName: stocks-app-db-pvc
       - name: db-creds
         secret:
           secretName: db-creds

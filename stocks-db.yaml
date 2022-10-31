@@ -31,8 +31,6 @@ spec:
         app: stocks-app
         microservice: db
     spec:
-      securityContext:
-        runAsUser: 999
       containers:
       - image: mongo:4.4.14-focal
         imagePullPolicy: IfNotPresent

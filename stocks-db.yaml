@@ -38,9 +38,9 @@ spec:
         imagePullPolicy: IfNotPresent
         name: stocksdb
         volumeMounts:
-          - name: db_data
+          - name: db-data
             mountPath: "/data/db"
-          - name: db_creds
+          - name: db-creds
             mountPath: "/run/secrets"
             readOnly: true
         ports:
@@ -51,10 +51,10 @@ spec:
         - name: MONGO_INITDB_ROOT_PASSWORD_FILE
           value: "/run/secrets/stocksmongopassword"
       volumes:
-      - name: db_data
+      - name: db-data
         persistentVolumeClaim:
           claimName: pv-stocksapp-db
-      - name: db_creds
+      - name: db-creds
         secret:
           secretName: db-creds
           optional: false

@@ -32,7 +32,7 @@ spec:
             subPath: stocksmongopassword
         ports:
         - containerPort: 8080
-          name: api-competitors-port
+          name: api-comp-port
         env:
         - name: PORT
           value: "8080"
@@ -70,5 +70,5 @@ spec:
   - name: competitors-svc-port
     protocol: TCP
     port: 8080
-    targetPort: api-competitors-port
+    targetPort: api-comp-port
   type: ClusterIP

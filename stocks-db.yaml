@@ -32,13 +32,17 @@ spec:
         app: stocks-app
         microservice: db
     spec:
+      securityContext:
+        fsGroup: 999 
+        runAsUser: 999
+        fsGroup: 999
       containers:
       - image: mongo:4.4.14-focal
         imagePullPolicy: IfNotPresent
         name: stocksdb
         volumeMounts:
           - name: db-data
-            mountPath: "/data"
+            mountPath: "/data/db"
           - name: db-creds
             mountPath: "/etc/secrets"
         ports:

@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stocks-app-frontend
+  namespace: stocks-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: stocks-app
+      microservice: frontend
+  template:
+    metadata:
+      labels:
+        app: stocks-app
+        microservice: frontend
+    spec:
+      securityContext:
+        fsGroup: 65534
+        runAsUser: 65534
+        runAsGroup: 65534
+      containers:
+      - image: ady28/stocks-frontend:qual
+        imagePullPolicy: IfNotPresent
+        name: stocksfrontend
+        ports:
+        - containerPort: 8080
+          name: frontend-port
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: stocksfrontend
+  namespace: stocks-app
+spec:
+  selector:
+    app: stocks-app
+    microservice: frontend
+  ports:
+  - name: frontend-svc-port
+    protocol: TCP
+    port: 8080
+    targetPort: frontend-port
+  type: ClusterIP
+
+---
+
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: stocks-app-apiclient-ingress
+  namespace: stocks-app
+spec:
+  entryPoints:
+  - web
+  routes:
+  - kind: Rule
+    match: Host(`adidum.ddns.net`) && (PathPrefix(`/`))
+    services:
+    - kind: Service
+      name: stocksfrontend
+      namespace: stocks-app
+      port: 8080

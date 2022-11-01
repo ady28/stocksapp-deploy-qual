@@ -18,6 +18,7 @@ pipeline {
                 withKubeConfig([credentialsId: 'local_kube_stocksapp', serverUrl: "${env.KUBERNETES_API}", namespace: "${env.STOCKS_APP_NAMESPACE}"]) {
                     sh 'kubectl apply -f stocks-db.yaml'
                     sh 'kubectl apply -f stocks-apiclient.yaml'
+                    sh 'kubectl apply -f stocks-frontend.yaml'
                 }
             }
         }

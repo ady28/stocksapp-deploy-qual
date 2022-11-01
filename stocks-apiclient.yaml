@@ -82,10 +82,13 @@ kind: Ingress
 metadata:
   name: stocks-app-apiclient-ingress
   namespace: stocks-app
+  annotations:
+    kubernetes.io/ingress.class: traefik
 spec:
   ingressClassName: stocks-app-apiclient-ingress
   rules:
-  - http:
+  - host: adidum.ddns.net
+    http:
       paths:
       - path: "/api"
         pathType: Prefix

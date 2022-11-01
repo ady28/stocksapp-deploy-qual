@@ -25,10 +25,10 @@ spec:
         name: stocksapiclient
         volumeMounts:
           - name: db-creds
-            mountPath: "/etc/secrets/stocksmongouser"
+            mountPath: "/run/secrets/stocksmongouser"
             subPath: stocksmongouser
           - name: db-creds
-            mountPath: "/etc/secrets/stocksmongopassword"
+            mountPath: "/run/secrets/stocksmongopassword"
             subPath: stocksmongopassword
         ports:
         - containerPort: 8080

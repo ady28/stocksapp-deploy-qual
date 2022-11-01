@@ -50,7 +50,7 @@ spec:
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: stocks-app-apiclient-ingress
+  name: stocks-app-frontend-ingress
   namespace: stocks-app
 spec:
   entryPoints:

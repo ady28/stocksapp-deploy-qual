@@ -87,7 +87,7 @@ spec:
   - web
   routes:
   - kind: Rule
-    match: Host(`adidum.ddns.net`)
+    match: Host(`adidum.ddns.net`) && (PathPrefix(`/api`))
     services:
     - kind: Service
       name: stocksapiclient

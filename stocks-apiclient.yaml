@@ -93,7 +93,5 @@ spec:
       - path: "/api"
         pathType: Prefix
         backend:
-          service:
-            name: stocksapiclient
-            port:
-              number: 8080
+          serviceName: stocksapiclient
+          servicePort: apiclient-svc-port

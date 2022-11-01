@@ -32,8 +32,13 @@ spec:
         app: stocks-app
         microservice: db
     spec:
+      securityContext:
+        fsGroup: 999 
+        runAsUser: 999
+        runAsGroup: 999
       containers:
       - image: mongo:4.4.14-focal
+        args: ["--dbpath","/data/db"]
         imagePullPolicy: IfNotPresent
         name: stocksdb
         volumeMounts:

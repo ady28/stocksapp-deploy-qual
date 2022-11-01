@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stocks-app-apiclient
+  namespace: stocks-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: stocks-app
+      microservice: apiclient
+  template:
+    metadata:
+      labels:
+        app: stocks-app
+        microservice: apiclient
+    spec:
+      securityContext:
+        fsGroup: 1000
+        runAsUser: 1000
+        runAsGroup: 1000
+      containers:
+      - image: ady28/stocks-frontend-api:test
+        imagePullPolicy: IfNotPresent
+        name: stocksapiclient
+        volumeMounts:
+          - name: db-creds
+            mountPath: "/etc/secrets/stocksmongouser"
+            subPath: stocksmongouser
+          - name: db-creds
+            mountPath: "/etc/secrets/stocksmongopassword"
+            subPath: stocksmongopassword
+        ports:
+        - containerPort: 8080
+          name: api-client-port
+        env:
+        - name: PORT
+          value: "8080"
+        - name: MONGODBSERVERNAME
+          value: "stocksdb"
+        - name: MONGODBSERVERPORT
+          value: "27017"
+        - name: STOCKSDB
+          value: "stocks"
+        - name: STOCKSAPISERVER
+          value: "stocksimport"
+        - name: STOCKSAPISERVERPORT
+          value: "8080"
+      volumes:
+      - name: db-creds
+        secret:
+          secretName: db-creds
+          optional: false
+          items:
+            - key: stocksmongouser
+              path: stocksmongouser
+            - key: stocksmongopassword
+              path: stocksmongopassword
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: stocksapiclient
+  namespace: stocks-app
+spec:
+  selector:
+    app: stocks-app
+    microservice: apiclient
+  ports:
+  - name: apiclient-svc-port
+    protocol: TCP
+    port: 8080
+    targetPort: api-client-port
+  type: ClusterIP

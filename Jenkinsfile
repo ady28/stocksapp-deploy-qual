@@ -17,6 +17,7 @@ pipeline {
                 echo "Deploying the stocks app to the qual environment"
                 withKubeConfig([credentialsId: 'local_kube_stocksapp', serverUrl: "${env.KUBERNETES_API}", namespace: "${env.STOCKS_APP_NAMESPACE}"]) {
                     sh 'kubectl apply -f stocks-db.yaml'
+                    sh 'kubectl apply -f stocks-apiclient.yaml'
                 }
             }
         }

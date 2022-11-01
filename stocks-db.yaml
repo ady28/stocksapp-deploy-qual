@@ -47,6 +47,7 @@ spec:
             mountPath: "/etc/secrets"
         ports:
         - containerPort: 27017
+          name: mongo-db-port
         env:
         - name: MONGO_INITDB_ROOT_USERNAME_FILE
           value: "/etc/secrets/stocksmongouser"
@@ -60,3 +61,21 @@ spec:
         secret:
           secretName: db-creds
           optional: false
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: stocksdb
+  namespace: stocks-app
+spec:
+  selector:
+    app: stocks-app
+    microservice: db
+  ports:
+  - name: mongo-svc-port
+    protocol: TCP
+    port: 27017
+    targetPort: mongo-db-port
+  type: ClusterIP

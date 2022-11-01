@@ -14,7 +14,7 @@ Server config:
  - sudo systemctl start nfs-kernel-server.service
  - sudo systemctl enable nfs-kernel-server.service
  - sudo mkdir /srv/stocks_nfs
- - sudo nano /etc/exports [Add: /srv/stocks_nfs    *(rw,sync,no_subtree_check)]
+ - sudo nano /etc/exports [Add: /srv/stocks_nfs    *(rw,sync,no_subtree_check,no_root_squash)]
  - sudo exportfs -a
 
 On the kubernetes cluster create the PV:

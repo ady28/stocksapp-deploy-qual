@@ -78,4 +78,5 @@ spec:
     protocol: TCP
     port: 27017
     targetPort: mongo-db-port
-  type: ClusterIP
+    nodePort: 30001
+  type: NodePort

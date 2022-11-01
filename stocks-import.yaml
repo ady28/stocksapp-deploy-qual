@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stocks-app-import
+  namespace: stocks-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: stocks-app
+      microservice: import
+  template:
+    metadata:
+      labels:
+        app: stocks-app
+        microservice: import
+    spec:
+      securityContext:
+        fsGroup: 65534
+        runAsUser: 65534
+        runAsGroup: 65534
+      containers:
+      - image: ady28/stocks-import:test
+        imagePullPolicy: IfNotPresent
+        name: stocksimport
+        volumeMounts:
+          - name: db-creds
+            mountPath: "/run/secrets/stocksmongouser"
+            subPath: stocksmongouser
+          - name: db-creds
+            mountPath: "/run/secrets/stocksmongopassword"
+            subPath: stocksmongopassword
+        ports:
+        - containerPort: 8080
+          name: api-import-port
+        env:
+        - name: PORT
+          value: "8080"
+        - name: MONGODBSERVERNAME
+          value: "stocksdb"
+        - name: MONGODBSERVERNAME
+          value: "27017"
+        - name: COMPETITORS_NAME
+          value: "stockscompetitors"
+        - name: COMPETITORS_PORT
+          value: "8080"
+      volumes:
+      - name: db-creds
+        secret:
+          secretName: db-creds
+          optional: false
+          items:
+            - key: stocksmongouser
+              path: stocksmongouser
+            - key: stocksmongopassword
+              path: stocksmongopassword
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: stocksimport
+  namespace: stocks-app
+spec:
+  selector:
+    app: stocks-app
+    microservice: import
+  ports:
+  - name: import-svc-port
+    protocol: TCP
+    port: 8080
+    targetPort: api-import-port
+  type: ClusterIP

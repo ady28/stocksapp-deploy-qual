@@ -19,6 +19,8 @@ pipeline {
                     sh 'kubectl apply -f stocks-db.yaml'
                     sh 'kubectl apply -f stocks-apiclient.yaml'
                     sh 'kubectl apply -f stocks-frontend.yaml'
+                    sh 'kubectl apply -f stocks-competitors.yaml'
+                    sh 'kubectl apply -f stocks-import.yaml'
                 }
             }
         }

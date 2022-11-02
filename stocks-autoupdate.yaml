@@ -1,0 +1,49 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: stocks-autoupdate
+spec:
+  schedule: "0 57 15 * * ?"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: stocksautoupdate
+            image: ady28/stocks-autoupdate:test
+            imagePullPolicy: IfNotPresent
+            command:
+            - main.ps1
+            volumeMounts:
+            - name: db-creds
+              mountPath: "/run/secrets/stocksmongouser"
+              subPath: stocksmongouser
+            - name: db-creds
+              mountPath: "/run/secrets/stocksmongopassword"
+              subPath: stocksmongopassword
+            env:
+            - name: NO_STOCKS
+              value: "2"
+            - name: MONGO_SERVER
+              value: "stocksdb"
+            - name: MONGO_PORT
+              value: "27017"
+            - name: MONGO_DB
+              value: "stocks"
+            - name: APP_ENV
+              value: "test"
+            - name: STOCK_API_NAME
+              value: "stocksimport"
+            - name: STOCK_API_PORT
+              value: "8080"
+          volumes:
+          - name: db-creds
+            secret:
+              secretName: db-creds
+              optional: false
+              items:
+                - key: stocksmongouser
+                  path: stocksmongouser
+                - key: stocksmongopassword
+                  path: stocksmongopassword
+          restartPolicy: OnFailure

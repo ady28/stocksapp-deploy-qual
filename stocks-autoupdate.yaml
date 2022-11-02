@@ -4,7 +4,7 @@ metadata:
   name: stocks-autoupdate
   namespace: stocks-app
 spec:
-  schedule: "45 15 * * *"
+  schedule: "55 15 * * *"
   jobTemplate:
     spec:
       template:
@@ -14,6 +14,7 @@ spec:
             image: ady28/stocks-autoupdate:test
             imagePullPolicy: IfNotPresent
             command:
+            - pwsh
             - main.ps1
             volumeMounts:
             - name: db-creds

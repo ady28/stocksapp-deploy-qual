@@ -4,7 +4,7 @@ metadata:
   name: stocks-autoupdate
   namespace: stocks-app
 spec:
-  schedule: "0 57 15 * * ?"
+  schedule: "45 15 * * *"
   jobTemplate:
     spec:
       template:

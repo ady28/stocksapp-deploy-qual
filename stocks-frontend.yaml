@@ -54,7 +54,7 @@ metadata:
   namespace: stocks-app
 spec:
   entryPoints:
-  - web
+  - websecure
   routes:
   - kind: Rule
     match: Host(`adidum.ddns.net`) && (PathPrefix(`/`))
@@ -63,3 +63,5 @@ spec:
       name: stocksfrontend
       namespace: stocks-app
       port: 8080
+  tls:
+    secretName: ssl-cert

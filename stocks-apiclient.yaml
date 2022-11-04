@@ -21,7 +21,7 @@ spec:
         runAsGroup: 1000
       containers:
       - image: ady28/stocks-frontend-api:test
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         name: stocksapiclient
         volumeMounts:
           - name: db-creds

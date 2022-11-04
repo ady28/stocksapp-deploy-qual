@@ -12,7 +12,7 @@ spec:
           containers:
           - name: stocksautoupdate
             image: ady28/stocks-autoupdate:test
-            imagePullPolicy: IfNotPresent
+            imagePullPolicy: Always
             command:
             - pwsh
             - main.ps1

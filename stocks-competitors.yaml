@@ -21,7 +21,7 @@ spec:
         runAsGroup: 65534
       containers:
       - image: ady28/stocks-competitors:test
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         name: stockscompetitors
         volumeMounts:
           - name: db-creds

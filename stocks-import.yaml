@@ -21,7 +21,7 @@ spec:
         runAsGroup: 65534
       containers:
       - image: ady28/stocks-import:test
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         name: stocksimport
         volumeMounts:
           - name: db-creds

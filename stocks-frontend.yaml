@@ -21,7 +21,7 @@ spec:
         runAsGroup: 65534
       containers:
       - image: ady28/stocks-frontend:qual
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         name: stocksfrontend
         ports:
         - containerPort: 8080

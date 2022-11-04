@@ -9,6 +9,10 @@ spec:
     spec:
       template:
         spec:
+          securityContext:
+            fsGroup: 65534
+            runAsUser: 65534
+            runAsGroup: 65534
           containers:
           - name: stocksautoupdate
             image: ady28/stocks-autoupdate:test

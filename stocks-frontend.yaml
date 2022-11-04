@@ -58,6 +58,9 @@ spec:
   routes:
   - kind: Rule
     match: Host(`adidum.ddns.net`) && (PathPrefix(`/`))
+    middlewares:
+    - name: stocks-app-auth
+      namespace: stocks-app
     services:
     - kind: Service
       name: stocksfrontend

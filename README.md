@@ -29,5 +29,5 @@ Create a secret with the DB username and password
   - Create secret: kubectl create secret generic ssl-cert --from-file=tls.crt=./server.crt --from-file=tls.key=./server.key --namespace stocks-app
 
   Create a secret for the website login
-   - htpasswd -nb [user] [pass] | openssl base64
-   - kubectl create secret generic login-user -n stocks-app --from-literal=users=[output_of_last_command_on_one_line]
+   - htpasswd -c auth stocks-admin
+   - kubectl create secret generic login-user -n stocks-app --from-file=auth

@@ -15,15 +15,16 @@ spec:
         app: stocks-app
         microservice: import
     spec:
+      securityContext:
+          fsGroup: 65534
+          runAsUser: 65534
+          runAsGroup: 65534
       containers:
       - image: ady28/stocks-import:qual
         imagePullPolicy: Always
         name: stocksimport
         securityContext:
           readOnlyRootFilesystem: true
-          fsGroup: 65534
-          runAsUser: 65534
-          runAsGroup: 65534
         volumeMounts:
           - name: db-creds
             mountPath: "/run/secrets/stocksmongouser"

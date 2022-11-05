@@ -20,7 +20,7 @@ spec:
         runAsUser: 65534
         runAsGroup: 65534
       containers:
-      - image: ady28/stocks-import:test
+      - image: ady28/stocks-import:qual
         imagePullPolicy: Always
         name: stocksimport
         volumeMounts:

@@ -15,14 +15,14 @@ spec:
         app: stocks-app
         microservice: competitors
     spec:
-      securityContext:
-        fsGroup: 65534
-        runAsUser: 65534
-        runAsGroup: 65534
       containers:
-      - image: ady28/stocks-competitors:test
+      - image: ady28/stocks-competitors:qual
         imagePullPolicy: Always
         name: stockscompetitors
+        securityContext:
+          readOnlyRootFilesystem: true
+          runAsUser: 65534
+          runAsGroup: 65534
         volumeMounts:
           - name: db-creds
             mountPath: "/run/secrets/stocksmongouser"
@@ -30,6 +30,8 @@ spec:
           - name: db-creds
             mountPath: "/run/secrets/stocksmongopassword"
             subPath: stocksmongopassword
+          - mountPath: /run
+            name: tmpfs-1
         ports:
         - containerPort: 8080
           name: api-comp-port
@@ -54,6 +56,8 @@ spec:
               path: stocksmongouser
             - key: stocksmongopassword
               path: stocksmongopassword
+      - name: tmpfs-1
+        emptyDir: {}
 
 ---
 

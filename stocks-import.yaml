@@ -15,14 +15,15 @@ spec:
         app: stocks-app
         microservice: import
     spec:
-      securityContext:
-        fsGroup: 65534
-        runAsUser: 65534
-        runAsGroup: 65534
       containers:
       - image: ady28/stocks-import:qual
         imagePullPolicy: Always
         name: stocksimport
+        securityContext:
+          readOnlyRootFilesystem: true
+          fsGroup: 65534
+          runAsUser: 65534
+          runAsGroup: 65534
         volumeMounts:
           - name: db-creds
             mountPath: "/run/secrets/stocksmongouser"
@@ -30,6 +31,8 @@ spec:
           - name: db-creds
             mountPath: "/run/secrets/stocksmongopassword"
             subPath: stocksmongopassword
+          - mountPath: /run
+            name: tmpfs-1
         ports:
         - containerPort: 8080
           name: api-import-port
@@ -54,6 +57,8 @@ spec:
               path: stocksmongouser
             - key: stocksmongopassword
               path: stocksmongopassword
+      - name: tmpfs-1
+        emptyDir: {}
 
 ---
 

@@ -16,7 +16,7 @@ spec:
         microservice: apiclient
     spec:
       containers:
-      - image: ady28/stocks-frontend-api:test
+      - image: ady28/stocks-frontend-api:qual
         imagePullPolicy: Always
         name: stocksapiclient
         securityContext:

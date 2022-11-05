@@ -15,14 +15,14 @@ spec:
         app: stocks-app
         microservice: apiclient
     spec:
-      securityContext:
-        fsGroup: 1000
-        runAsUser: 1000
-        runAsGroup: 1000
       containers:
       - image: ady28/stocks-frontend-api:test
         imagePullPolicy: Always
         name: stocksapiclient
+        securityContext:
+          readOnlyRootFilesystem: true
+          runAsUser: 1000
+          runAsGroup: 1000
         volumeMounts:
           - name: db-creds
             mountPath: "/run/secrets/stocksmongouser"
@@ -30,6 +30,8 @@ spec:
           - name: db-creds
             mountPath: "/run/secrets/stocksmongopassword"
             subPath: stocksmongopassword
+          - mountPath: /run
+            name: tmpfs-1
         ports:
         - containerPort: 8080
           name: api-client-port
@@ -56,6 +58,8 @@ spec:
               path: stocksmongouser
             - key: stocksmongopassword
               path: stocksmongopassword
+      - name: tmpfs-1
+        emptyDir: {}
 
 ---
 

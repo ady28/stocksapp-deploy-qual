@@ -19,7 +19,7 @@ On the kubernetes cluster create the PV:
  - kubectl apply -f database-pv.yaml
 
 Create a secret with the DB username and password
- - kubectl create secret generic db-creds --from-literal=stocksmongouser=user --from-literal=stocksmongopassword='pass' --namespace stocks-app
+ - kubectl create secret generic db-creds --from-literal=stocksmongouser=user --from-literal=stocksmongopassword=pass --namespace stocks-app
 
  Create a secret for the SSL certificate
   - Create a server.key file with the private key
@@ -27,5 +27,4 @@ Create a secret with the DB username and password
   - Create secret: kubectl create secret generic ssl-cert --from-file=tls.crt=./server.crt --from-file=tls.key=./server.key --namespace stocks-app
 
   Create a secret for the jwt
-   - kubectl create secret generic jwt-secret --from-literal=jwtsecr
-et=randomtext --namespace stocks-app
+   - kubectl create secret generic jwt-secret --from-literal=jwtsecret=randomtext --namespace stocks-app

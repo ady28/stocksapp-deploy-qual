@@ -106,9 +106,6 @@ spec:
   routes:
   - kind: Rule
     match: Host(`adidum.ddns.net`) && (PathPrefix(`/api`))
-    middlewares:
-    - name: stocks-app-auth
-      namespace: stocks-app
     services:
     - kind: Service
       name: stocksapiclient

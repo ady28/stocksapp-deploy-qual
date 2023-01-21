@@ -1,8 +1,0 @@
-apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
-metadata:
-  name: stocks-app-auth
-  namespace: stocks-app
-spec:
-  basicAuth:
-    secret: login-user

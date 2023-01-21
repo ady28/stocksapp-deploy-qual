@@ -30,6 +30,9 @@ spec:
           - name: db-creds
             mountPath: "/run/secrets/stocksmongopassword"
             subPath: stocksmongopassword
+          - name: jwt-secret
+            mountPath: "/run/secrets/jwtsecret"
+            subPath: jwtsecret
           - mountPath: /run
             name: tmpfs-1
         ports:
@@ -48,6 +51,10 @@ spec:
           value: "stocksimport"
         - name: STOCKSAPISERVERPORT
           value: "8080"
+        - name: JWT_EXPIRE
+          value: "2d"
+        - name: JWT_COOKIE_EXPIRE
+          value: "2"
       volumes:
       - name: db-creds
         secret:
@@ -58,6 +65,13 @@ spec:
               path: stocksmongouser
             - key: stocksmongopassword
               path: stocksmongopassword
+      - name: jwt-secret
+        secret:
+          secretName: jwt-secret
+          optional: false
+          items:
+            - key: jwtsecret
+              path: jwtsecret
       - name: tmpfs-1
         emptyDir: {}
 

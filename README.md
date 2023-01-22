@@ -15,7 +15,8 @@ Server config:
  - sudo nano /etc/exports [Add: /srv/stocks_nfs    *(rw,sync,no_subtree_check,no_root_squash)]
  - sudo exportfs -a
 
-On the kubernetes cluster create the PV:
+On the kubernetes cluster install nfs client and create the PV:
+ - sudo apt install -y nfs-common
  - kubectl apply -f database-pv.yaml
 
 Create a secret with the DB username and password

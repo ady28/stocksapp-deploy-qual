@@ -37,7 +37,7 @@ spec:
         runAsUser: 999
         runAsGroup: 999
       containers:
-      - image: mongo:5.0.14-focal
+      - image: mongo:6.0.3-focal
         args: ["--dbpath","/data/db"]
         imagePullPolicy: IfNotPresent
         name: stocksdb

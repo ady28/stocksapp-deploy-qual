@@ -42,7 +42,7 @@ spec:
         - name: PORT
           value: "8080"
         - name: MONGODBSERVERNAME
-          value: "10.103.180.117"
+          value: "stocksdb"
         - name: MONGODBSERVERPORT
           value: "27017"
         - name: STOCKSDB

@@ -42,7 +42,7 @@ spec:
         tolerationSeconds: 0
       - key: node.kubernetes.io/unreachable
         effect: NoExecute
-  tolerationSeconds: 0
+        tolerationSeconds: 0
       containers:
       - image: mongo:6.0.3-focal
         args: ["--dbpath","/data/db"]

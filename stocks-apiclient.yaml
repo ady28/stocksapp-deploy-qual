@@ -19,6 +19,10 @@ spec:
       - name: init-wait-for-stocksdb
         image: alpine:latest
         command: ["/bin/sh", "-c", "for i in $(seq 1 300); do nc -zvw1 $MONGODBSERVERNAME $MONGODBSERVERPORT && exit 0 || sleep 3; done; exit 1"]
+        securityContext:
+          readOnlyRootFilesystem: true
+          runAsUser: 65534
+          runAsGroup: 65534
         env:
         - name: MONGODBSERVERNAME
           value: "stocksdb"

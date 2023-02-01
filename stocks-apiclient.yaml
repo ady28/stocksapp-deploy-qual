@@ -18,7 +18,12 @@ spec:
       initContainers:
       - name: init-wait-for-stocksdb
         image: alpine:latest
-        command: ["/bin/sh", "-c", "for i in $(seq 1 300); do nc -zvw1 $STOCKSDB_SERVICE_HOST $STOCKSDB_SERVICE_PORT && exit 0 || sleep 3; done; exit 1"]
+        command: ["/bin/sh", "-c", "for i in $(seq 1 300); do nc -zvw1 $MONGODBSERVERNAME $MONGODBSERVERPORT && exit 0 || sleep 3; done; exit 1"]
+        env:
+        - name: MONGODBSERVERNAME
+          value: "stocksdb"
+        - name: MONGODBSERVERPORT
+          value: "27017"
       containers:
       - image: ady28/stocks-frontend-api:qual
         imagePullPolicy: Always

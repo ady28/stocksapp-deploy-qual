@@ -52,7 +52,7 @@ spec:
             command:
               - /bin/sh
               - -c
-              - 'mongosh --eval "db.serverStatus"'
+              - mongosh --eval "db"
           initialDelaySeconds: 30
           periodSeconds: 10
         volumeMounts:

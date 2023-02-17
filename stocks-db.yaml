@@ -47,6 +47,14 @@ spec:
         args: ["--dbpath","/data/db"]
         imagePullPolicy: IfNotPresent
         name: stocksdb
+        livenessProbe:
+          exec:
+            command:
+              - /bin/sh
+              - -c
+              - mongosh --eval db.serverStatus
+          initialDelaySeconds: 30
+          periodSeconds: 10
         volumeMounts:
           - name: db-data
             mountPath: "/data/db"

@@ -49,10 +49,7 @@ spec:
         name: stocksdb
         livenessProbe:
           exec:
-            command:
-              - /bin/sh
-              - -c
-              - \'mongosh --eval db\'
+            command: ["/bin/sh", "-c", "mongosh --eval db"]
           initialDelaySeconds: 30
           periodSeconds: 10
         volumeMounts:

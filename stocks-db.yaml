@@ -51,9 +51,8 @@ spec:
           exec:
             command:
               - /bin/sh
-              - "-c"
-              - |
-                mongosh --eval 'db.serverStatus'
+              - -c
+              - mongosh --eval "db.serverStatus"
           initialDelaySeconds: 30
           periodSeconds: 10
         volumeMounts:

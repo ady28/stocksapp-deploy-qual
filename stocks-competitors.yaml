@@ -37,7 +37,7 @@ spec:
           name: api-comp-port
         livenessProbe:
           httpGet:
-            path: /
+            path: /health
             port: 8080
           initialDelaySeconds: 4
           periodSeconds: 5

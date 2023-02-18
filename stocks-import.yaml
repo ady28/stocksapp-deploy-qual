@@ -35,6 +35,12 @@ spec:
         ports:
         - containerPort: 8080
           name: api-import-port
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 4
+          periodSeconds: 5
         env:
         - name: PORT
           value: "8080"
